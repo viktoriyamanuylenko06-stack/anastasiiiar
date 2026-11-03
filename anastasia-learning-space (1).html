@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anastasia's Learning Space</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --terra:#C97C63; --terra-d:#A85C46; --terra-l:#F7ECE6;
+  --mauve:#A9899E; --mauve-d:#82647A; --mauve-l:#F3ECF1;
+  --sage:#8B9B7E;  --sage-d:#647159;  --sage-l:#EEF1E9;
+  --sand:#C9A97A;  --sand-d:#A3835A;  --sand-l:#F6EFE3;
+  --plum:#8E6FA8;  --plum-d:#6B4F82;
+  --ink:#211C1A; --muted:#8A8078; --border:rgba(33,28,26,.10);
+  --bg:#FBF8F4; --white:#FFFFFF; --shadow:rgba(33,28,26,.08);
+}
+
+body { font-family:'Manrope',sans-serif; background:var(--bg); color:var(--ink); min-height:100vh; overflow-x:hidden; }
+
+body::before {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(ellipse 620px 420px at 8% -8%, rgba(201,124,99,.14) 0%, transparent 70%),
+    radial-gradient(ellipse 520px 380px at 100% 100%, rgba(169,137,158,.13) 0%, transparent 70%);
+}
+
+header { position:relative; z-index:1; padding:3.6rem 1.5rem 0; max-width:780px; margin:0 auto; }
+
+.header-row { display:flex; align-items:baseline; gap:14px; opacity:0; animation:up .55s ease forwards .1s; }
+.header-index { font-family:'Fraunces',serif; font-style:italic; font-size:15px; color:var(--terra-d); }
+.header-line { flex:1; height:1px; background:var(--border); }
+.header-tag { font-size:10.5px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+
+.header-main { display:flex; align-items:flex-end; justify-content:space-between; gap:1rem; margin-top:1.1rem; }
+
+h1 {
+  font-family:'Fraunces',serif; font-weight:600; font-size:clamp(2.6rem,6.5vw,4.4rem);
+  line-height:1.02; letter-spacing:-.01em; opacity:0; animation:up .65s ease forwards .2s;
+}
+h1 em { font-style:italic; color:var(--terra-d); }
+
+.header-orb { flex-shrink:0; opacity:0; animation:up .65s ease forwards .3s, spin 22s linear infinite .95s; }
+@keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+@media (max-width:560px){ .header-orb{display:none} }
+
+.header-sub { font-size:15px; color:var(--muted); font-weight:500; margin-top:.8rem; max-width:400px; opacity:0; animation:up .65s ease forwards .32s; }
+
+main { position:relative; z-index:1; max-width:780px; margin:2.6rem auto 0; padding:0 1.25rem 5rem; }
+
+.sec-label { display:flex; align-items:baseline; gap:10px; margin:2.4rem 0 .9rem; opacity:0; animation:up .45s ease forwards .4s; }
+.sec-label .idx { font-family:'Fraunces',serif; font-style:italic; font-size:13px; color:var(--terra-d); }
+.sec-label .txt { font-size:11px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--ink); }
+.sec-label .sticker {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:34px; height:34px; font-size:18px; line-height:1;
+  background:var(--white); border:1px solid var(--border); border-radius:50%;
+  box-shadow:0 3px 8px var(--shadow); transform:rotate(-8deg);
+  align-self:center; transition:transform .25s ease;
+}
+.sec-label:hover .sticker { transform:rotate(8deg) scale(1.12); }
+.sec-label { align-items:center; }
+.sec-label::after { content:''; flex:1; height:1px; background:var(--border); }
+
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.wide { grid-column:1 / -1; }
+@media (max-width:620px){ .grid-2{grid-template-columns:1fr} }
+
+.card {
+  background:var(--white); border:1px solid var(--border); border-radius:4px;
+  padding:1.4rem 1.4rem 1.2rem; text-decoration:none; color:var(--ink);
+  display:flex; flex-direction:column; gap:.45rem; position:relative; overflow:hidden;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  opacity:0; animation:up .45s ease forwards;
+}
+.card:hover { transform:translateY(-2px); box-shadow:0 12px 28px var(--shadow); border-color:var(--c); }
+.card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--c); }
+
+.card-icon {
+  width:38px; height:38px; border-radius:50%;
+  background:color-mix(in srgb, var(--c) 12%, white);
+  display:flex; align-items:center; justify-content:center; margin-bottom:.3rem;
+  transition:transform .18s ease, background .18s ease;
+}
+.card-icon svg { width:18px; height:18px; stroke:var(--c); fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+.card:hover .card-icon { transform:scale(1.07); background:var(--c); }
+.card:hover .card-icon svg { stroke:white; }
+
+.card-cat { font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--c); }
+.card h3 { font-family:'Fraunces',serif; font-size:1.22rem; font-weight:600; line-height:1.18; margin-top:.1rem; }
+.card p { font-size:13px; color:var(--muted); font-weight:500; line-height:1.5; flex:1; margin-top:.05rem; }
+
+.card-arrow {
+  align-self:flex-end; width:26px; height:26px; border-radius:50%; border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--c);
+  margin-top:.5rem; flex-shrink:0; transition:background .18s, color .18s, border-color .18s;
+}
+.card:hover .card-arrow { background:var(--c); color:white; border-color:var(--c); }
+
+.card:nth-child(1){animation-delay:.1s}
+.card:nth-child(2){animation-delay:.16s}
+.card:nth-child(3){animation-delay:.22s}
+
+footer {
+  position:relative; z-index:1; text-align:center; padding:1rem 1.5rem 2.6rem;
+  font-size:11.5px; color:var(--muted); font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+}
+
+@keyframes up { from{opacity:0; transform:translateY(12px)} to{opacity:1; transform:translateY(0)} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <span class="header-index">01</span>
+    <span class="header-line"></span>
+    <span class="header-tag">English course</span>
+  </div>
+  <div class="header-main">
+    <h1>Anastasia's <em>Learning Space</em></h1>
+    <div class="header-orb">
+      <svg viewBox="0 0 60 60" width="60" height="60">
+        <circle cx="30" cy="30" r="27" fill="none" stroke="#C97C63" stroke-width="1.4" stroke-dasharray="2 5" opacity=".55"/>
+        <circle cx="30" cy="30" r="18" fill="none" stroke="#8B9B7E" stroke-width="1.4" opacity=".5"/>
+        <text x="30" y="35" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="15" fill="#A85C46">An</text>
+      </svg>
+    </div>
+  </div>
+  <p class="header-sub">Everything for your lessons — books, vocabulary, audio, video, board and payments, all in one place.</p>
+</header>
+
+<main>
+
+  <!-- BOOKS -->
+  <div class="sec-label"><span class="sticker">📚</span><span class="idx">i.</span><span class="txt">Books &amp; Vocabulary</span></div>
+  <div class="grid-2">
+
+    <a class="card" href="https://drive.google.com/file/d/1d3NbKIJwAOOlUU5sefKpLMKw9dtC8uNZ/view?usp=sharing" target="_blank" rel="noopener" style="--c:#A85C46">
+      <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 4.5C4 3.7 4.7 3 5.5 3H16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5.5a1.5 1.5 0 0 1-1.5-1.5v-15Z"/><path d="M4 17.5c0-.83.67-1.5 1.5-1.5H18"/><path d="M8 7h6M8 10.5h6"/></svg></div>
+      <div class="card-cat">Textbook</div>
+      <h3>Student's Book</h3>
+      <p>Your main coursebook — open anytime.</p>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a class="card" href="https://drive.google.com/file/d/1p2uCz-U32-fMYtepSNRYhLqa52QJB6_s/view?usp=sharing" target="_blank" rel="noopener" style="--c:#82647A">
+      <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M5 4h11.5a2.5 2.5 0 0 1 2.5 2.5V20H7.5A2.5 2.5 0 0 1 5 17.5V4Z"/><path d="M5 17.5c0-.83.67-1.5 1.5-1.5H19"/><path d="M9 8l2 2 4-4"/></svg></div>
+      <div class="card-cat">Practice</div>
+      <h3>Workbook</h3>
+      <p>Exercises and tasks for each unit.</p>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a class="card wide" href="https://docs.google.com/spreadsheets/d/103hQtHvXsy4iLQCz63JsPw5DyKiKvcT6/edit?usp=sharing&amp;ouid=114453098814058261013&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener" style="--c:#647159">
+      <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 7V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2"/><path d="M9 20h6M12 4v16"/></svg></div>
+      <div class="card-cat">Vocabulary</div>
+      <h3>Wordlist</h3>
+      <p>All the key words and phrases from each unit — review them before every lesson.</p>
+      <div class="card-arrow">→</div>
+    </a>
+
+  </div>
+
+  <!-- AUDIO & VIDEO -->
+  <div class="sec-label"><span class="sticker">🎧</span><span class="idx">ii.</span><span class="txt">Audio &amp; Video</span></div>
+  <div class="grid-2">
+
+    <a class="card" href="https://drive.google.com/drive/folders/1QH2nQ28nxyktSR9mJgFXZhaNWU2n9MX0?usp=drive_link" target="_blank" rel="noopener" style="--c:#647159">
+      <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg></div>
+      <div class="card-cat">Audio</div>
+      <h3>Student's Book Audio</h3>
+      <p>All listening tracks for the Student's Book.</p>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a class="card" href="https://drive.google.com/drive/folders/1VUIqRCqc9WcEhPG4fmO-neTf_CzxEb2k?usp=drive_link" target="_blank" rel="noopener" style="--c:#A3835A">
+      <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M8 8v8M4 10v4M16 8v8M20 10v4"/></svg></div>
+      <div class="card-cat">Audio</div>
+      <h3>Workbook Audio</h3>
+      <p>All listening tracks for the Workbook.</p>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a class="card wide" href="https://drive.google.com/drive/folders/1q-P4alDRmq4a7150PTGmd8Y_nrHqsxd_?usp=sharing" target="_blank" rel="noopener" style="--c:#82647A">
+      <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5L10 9.5Z"/></svg></div>
+      <div class="card-cat">Video</div>
+      <h3>Student's Book Video</h3>
+      <p>Video clips that go with the units in your coursebook.</p>
+      <div class="card-arrow">→</div>
+    </a>
+
+  </div>
+
+  <!-- BOARD & FINANCE -->
+  <div class="sec-label"><span class="sticker">🗂️</span><span class="idx">iii.</span><span class="txt">Board &amp; Finance</span></div>
+  <div class="grid-2">
+
+    <a class="card" href="https://app.holst.so/invite/8f80ba9f-72d0-421f-977f-03a8dd4d6366" target="_blank" rel="noopener" style="--c:#6B4F82">
+      <div class="card-icon"><img src="https://www.google.com/s2/favicons?domain=holst.so&sz=64" alt="" style="width:20px;height:20px;display:block" onerror="this.outerHTML='<svg viewBox=&quot;0 0 24 24&quot;><rect x=&quot;3.5&quot; y=&quot;4&quot; width=&quot;17&quot; height=&quot;13&quot; rx=&quot;1.5&quot;/><path d=&quot;M9 20h6M12 17v3&quot;/></svg>'"></div>
+      <div class="card-cat">Board</div>
+      <h3>Holst Board</h3>
+      <p>Our shared whiteboard for lesson notes and tasks.</p>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a class="card" href="https://docs.google.com/spreadsheets/d/1fB8BhKQGo2Wu80YAXVoBsTiP4t6VATGcm7YXY4DHkJA/edit?usp=sharing" target="_blank" rel="noopener" style="--c:#A85C46">
+      <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 14.5h4"/></svg></div>
+      <div class="card-cat">Finance</div>
+      <h3>Payment Schedule</h3>
+      <p>Track lesson payments and upcoming dates.</p>
+      <div class="card-arrow">→</div>
+    </a>
+
+  </div>
+
+</main>
+
+<footer>Anastasia's Learning Space</footer>
+
+</body>
+</html>
